@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../store/appContext";
 
 const SignUp = () => {
+    const { actions } = useContext(Context);
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [fullName, setFullName] = useState("");
+
+    const handleSignUp = (e) => {
+        e.preventDefault();
+        actions.signUp(email, password, navigate); 
+    };
+
     return (
         <div className="container">
             <div className="row justify-content-center mt-5">
@@ -10,22 +24,48 @@ const SignUp = () => {
                             <h3>Sign Up</h3>
                         </div>
                         <div className="card-body">
-                            <form>
+                            <form onSubmit={handleSignUp}>
                                 <div className="mb-3">
-                                    <label htmlFor="fullName" className="form-label">Full Name</label>
-                                    <input type="text" className="form-control" id="fullName" placeholder="Enter your full name" />
+                                    <label htmlFor="signup-fullName" className="form-label">Full Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="signup-fullName"
+                                        placeholder="Enter your full name"
+                                        value={fullName}
+                                        onChange={(e) => setFullName(e.target.value)}
+                                    />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="email" className="form-label">Email Address</label>
-                                    <input type="email" className="form-control" id="email" placeholder="Enter your email" />
+                                    <label htmlFor="signup-email" className="form-label">Email Address</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        id="signup-email"
+                                        placeholder="Enter your email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="password" className="form-label">Password</label>
-                                    <input type="password" className="form-control" id="password" placeholder="Enter your password" />
+                                    <label htmlFor="signup-password" className="form-label">Password</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="signup-password"
+                                        placeholder="Enter your password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-                                    <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm your password" />
+                                    <label htmlFor="signup-confirmPassword" className="form-label">Confirm Password</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="signup-confirmPassword"
+                                        placeholder="Confirm your password"
+                                    />
                                 </div>
                                 <button type="submit" className="btn btn-primary w-100">Sign Up</button>
                             </form>
@@ -35,6 +75,6 @@ const SignUp = () => {
             </div>
         </div>
     );
-}
+};
 
 export default SignUp;

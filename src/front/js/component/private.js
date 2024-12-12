@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useContext } from "react";
+import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 const PrivatePage = () => {
+    const{actions,store} = useContext(Context)
     const handleLogout = () => {
         // Aquí puedes agregar la lógica de logout, como redirigir al login o limpiar tokens.
         alert("You have been logged out.");
         // Redirigir al login (si usas React Router, usa navigate)
         window.location.href = "/login"; // Cambia esto según tu routing
     };
-
+const navigate = useNavigate()
+useEffect(()=>{
+    if (store.token === null) {
+    navigate("/")
+    }
+  actions.getPrivateData()
+},[])
     return (
         <div className="container">
             <div className="row justify-content-center mt-5">

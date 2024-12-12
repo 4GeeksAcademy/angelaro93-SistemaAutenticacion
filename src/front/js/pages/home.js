@@ -13,7 +13,6 @@ export const Home = () => {
 		<div className="text-center mt-5">
 			<Signup/>
 			<Login/>
-			<Privatepage/>
 			
 		</div>
 	);
